@@ -85,7 +85,7 @@
 
     root.innerHTML =
       '<div class="card">' +
-        '<div class="card-head"><h3>' + R.icon('video', 20) + 'Salas Virtuais de Estudo ao Vivo (WebRTC Jam Rooms)</h3><span class="tag">API WebRTC orçada em R$ 250 (Custos 1.7)</span></div>' +
+        '<div class="card-head"><h3>' + R.icon('video', 20) + 'Salas Virtuais de Estudo ao Vivo (Jam Rooms)</h3><span class="tag">Áudio e vídeo em tempo real</span></div>' +
         '<div class="rooms">' + ROOMS.map(function (r) {
           return '<div class="card inner room"><span class="live">Ao vivo</span><b>' + esc(r.name) + '</b>' +
             '<span class="small muted">' + R.icon('users', 14) + ' <b data-n="' + r.id + '">' + r.n + '</b> alunos treinando agora • ' + esc(r.level) + '</span>' +

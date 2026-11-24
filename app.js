@@ -1,6 +1,5 @@
 /* =====================================================================
    O RIFF | app.js (núcleo compartilhado do protótipo)
-   Responsável pela base: Miguel Santos da Silva (Grupo 8)
 
    O que este arquivo faz:
    1. Guarda o estado do sistema (em memória + localStorage)
@@ -9,9 +8,7 @@
       validação de CPF, formatação de moeda e datas, ícones
    4. Renderiza a topbar com o seletor de perfil e a tela ativa
 
-   Cada módulo (modulo1...modulo4) chama RIFF.register(n, {...})
-   para desenhar a sua tela. Se um módulo ainda não foi publicado,
-   a tela mostra um aviso no lugar (útil durante os commits).
+   Cada módulo registra suas telas de forma independente via RIFF.register(n, {...}).
    ===================================================================== */
 (function () {
   'use strict';
@@ -107,10 +104,10 @@
   };
 
   RIFF.MODULES = {
-    1: { file: 'modulo1-vitrine-auth.js', owner: 'Giovanni Ferigato Siqueira' },
-    2: { file: 'modulo2-aluno-afinador.js', owner: 'Miguel Santos da Silva' },
-    3: { file: 'modulo3-comunidade.js', owner: 'Leonardo Santos de Araujo Regos' },
-    4: { file: 'modulo4-backoffice-luthier.js', owner: 'Mateus de Moraes Soares' }
+    1: { file: 'modulo1-vitrine-auth.js', owner: 'Equipe O RIFF — Módulo 1' },
+    2: { file: 'modulo2-aluno-afinador.js', owner: 'Equipe O RIFF — Módulo 2' },
+    3: { file: 'modulo3-comunidade.js', owner: 'Equipe O RIFF — Módulo 3' },
+    4: { file: 'modulo4-backoffice-luthier.js', owner: 'Equipe O RIFF — Módulo 4' }
   };
 
   /* ---------------------------------------------------------------
@@ -671,7 +668,7 @@
     root.innerHTML =
       '<section class="hero">' +
         '<div class="hero-copy">' +
-          '<p class="eyebrow">Entrega 2.4 • Prototipagem de Telas • Grupo 8 • PUC Campinas</p>' +
+          '<p class="eyebrow">Campinas e Região • Kit Regulado + Comunidade Musical</p>' +
           '<h1>Aprenda guitarra com um instrumento <span class="hl">regulado</span> e uma comunidade <span class="hl2">de verdade</span>.</h1>' +
           '<p class="lead">O RIFF é a plataforma de assinatura de instrumentos regulados e comunidade musical de Campinas: kit físico com regulagem de bancada, app com afinador e trilha por IA, salas ao vivo e marketplace de parceiros.</p>' +
           '<div class="row wrap">' +
@@ -688,22 +685,10 @@
             '<div class="card-head"><h3>' + RIFF.icon(p.icon, 20) + p.label + '</h3></div>' +
             '<ul class="screen-list">' + p.screens.map(function (sn) {
               var s = RIFF.SCREENS[sn - 1];
-              var ok = !!defs[sn];
               return '<li><a href="#/tela-' + sn + '"><span class="chip-n">' + sn + '</span><span><b>' + RIFF.esc(s.title) + '</b>' +
-                '<small>' + s.us + ' • Módulo ' + s.module + (ok ? '' : ' • aguardando commit') + '</small></span>' + RIFF.icon('arrow', 16) + '</a></li>';
+                '<small>' + RIFF.esc(s.short) + '</small></span>' + RIFF.icon('arrow', 16) + '</a></li>';
             }).join('') + '</ul></div>';
         }).join('') +
-      '</section>' +
-      '<section class="card">' +
-        '<div class="card-head"><h3>' + RIFF.icon('sparkle', 20) + 'Roteiro sugerido para a apresentação (Entrega 2.5)</h3></div>' +
-        '<ol class="flow">' +
-          '<li><b>Dor de mercado e Kit Físico</b> na Tela 2 (ficha técnica, planos e Rent to Own).</li>' +
-          '<li><b>Cadastro com LGPD e Quiz IA</b> (Tela 1), depois <b>Rastreio e Passaporte</b> (Tela 3).</li>' +
-          '<li><b>Afinador ao vivo e Player Tudo em Um</b> (Tela 5).</li>' +
-          '<li><b>Match IA, Salas WebRTC e denúncia no Feed</b> (Telas 6 e 7).</li>' +
-          '<li><b>Luthier libera a guitarra</b> (Tela 9) e o <b>Admin</b> responde o ticket e oculta o post (Telas 8 e 10).</li>' +
-        '</ol>' +
-        '<p class="muted small">Dica: abra o site em duas abas (uma como Aluno e outra como Administrador) para ver as integrações acontecendo em tempo real.</p>' +
       '</section>';
   }
 
@@ -714,7 +699,7 @@
     var head = document.createElement('header');
     head.className = 'screen-head';
     head.innerHTML =
-      '<p class="eyebrow"><span class="tela-n">Tela ' + n + '</span> • ' + s.us + ' • Módulo ' + s.module + ' • ' + RIFF.PROFILES[s.profile].label + '</p>' +
+      '<p class="eyebrow"><span class="tela-n">Tela ' + n + '</span> • ' + RIFF.PROFILES[s.profile].label + '</p>' +
       '<h1>' + RIFF.esc(s.title) + '</h1>' +
       (def && def.lead ? '<p class="lead">' + def.lead + '</p>' : '');
     root.appendChild(head);
@@ -724,8 +709,8 @@
     if (!def) {
       body.innerHTML =
         '<div class="card empty">' + RIFF.icon('box', 36) +
-        '<h3>Módulo ' + s.module + ' ainda não publicado</h3>' +
-        '<p class="muted">Esta tela é desenhada pelo arquivo <code>' + mod.file + '</code>, de responsabilidade de ' + mod.owner + '. Assim que o commit entrar no repositório, ela aparece aqui.</p></div>';
+        '<h3>Módulo ' + s.module + ' ainda não carregado</h3>' +
+        '<p class="muted">Esta tela é implementada pelo arquivo <code>' + mod.file + '</code> (' + mod.owner + '). Carregue o arquivo do módulo correspondente para visualizar esta tela.</p></div>';
       return;
     }
     try {
@@ -756,7 +741,7 @@
       document.title = 'Tela ' + n + ' • ' + RIFF.SCREENS[n - 1].short + ' | O RIFF';
     } else {
       renderHome(root);
-      document.title = 'O RIFF | Protótipo navegável (Entrega 2.4)';
+      document.title = 'O RIFF | Assinatura de Instrumentos Regulados e Comunidade Musical';
     }
     if (keepScroll === true) window.scrollTo(0, y);
     else window.scrollTo(0, 0);

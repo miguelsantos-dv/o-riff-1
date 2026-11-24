@@ -72,7 +72,7 @@
             '</div>' +
             '<div class="row between wrap mt">' +
               '<span class="small muted">' + (order.serial ? 'Kit <span class="serial">' + esc(order.serial) + '</span>' : '<span class="badge s-amber">Aguardando kit liberado pelo luthier</span>') + '</span>' +
-              '<button class="btn btn-ghost btn-sm" id="nextStage"' + (stage >= 3 || !order.serial ? ' disabled' : '') + '>' + R.icon('arrow', 15) + 'Simular próxima etapa (demo)</button>' +
+              '<button class="btn btn-ghost btn-sm" id="nextStage"' + (stage >= 3 || !order.serial ? ' disabled' : '') + '>' + R.icon('arrow', 15) + 'Avançar etapa de envio</button>' +
             '</div>' +
             '<hr class="divider">' +
             '<p class="section-title">' + R.icon('bell', 15) + 'Notificações a cada mudança de status</p>' +
